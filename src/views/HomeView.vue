@@ -64,18 +64,18 @@ export default {
 
 <template>
   <main>
-    <div class="box-big w-full h-screen flex justify-center items-center">
+    <div class="box-big w-full flex justify-center items-center mt-10">
       <div class="w-[75%] h-[75%] flex items-center bg-slate-400 flex-col p-5">
         <div class="write w-full h-[5%] flex justify-center items-center gap-2 mb-2">
           <input v-model="todoText" type="text" placeholder="請輸入事項" class="input-text add-text w-[75%]">
           <button class="add-Todo bg-slate-200 p-2" @click="addTodo">新增</button>
         </div>
         <div class="title-all w-full flex">
-          <button class="all title p-2 border border-black bg-slate-300 hover:bg-slate-100" data-search="all" :class="{'bg-slate-50' : switchArr === null}" @click="switchArr = null">全部</button>
+          <button class="all title p-2 border border-black bg-slate-300 hover:bg-slate-100" :class="{'bg-slate-50' : switchArr === null}" @click="switchArr = null">全部</button>
           <button class="is-todo title p-2 border border-black bg-slate-300 hover:bg-slate-100"
-            data-search="isTodo" :class="{'bg-slate-50' : switchArr === true}" @click="switchArr = true">已執行</button>
+            :class="{'bg-slate-50' : switchArr === true}" @click="switchArr = true">已執行</button>
           <button class="not-todo title p-2 border border-black bg-slate-300 hover:bg-slate-100"
-            data-search="notTodo" :class="{'bg-slate-50' : switchArr === false}" @click="switchArr = false">未執行</button>
+            :class="{'bg-slate-50' : switchArr === false}" @click="switchArr = false">未執行</button>
         </div>
         <div class="content-all w-full border-t-4 border-black border-b-2 p-2">
           <div class="content flex justify-around">
