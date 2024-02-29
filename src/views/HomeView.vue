@@ -17,7 +17,6 @@ export default {
           id: 3,
           text: 222,
           status: false,
-
         },
       ],
       todoText: '',
@@ -45,7 +44,9 @@ export default {
     },
     // 刪除待辦事項
     deleteText(index) {
-      this.todoArr.splice(index,1);
+      if(confirm('確定要刪除?')){
+        this.todoArr.splice(index,1);
+      }
     },
   },
   computed: {
