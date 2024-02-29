@@ -71,11 +71,11 @@ export default {
           <button class="add-Todo bg-slate-200 p-2" @click="addTodo">新增</button>
         </div>
         <div class="title-all w-full flex">
-          <button class="all title p-2 border border-black bg-slate-300 hover:bg-slate-100" data-search="all" @click="switchArr = null">全部</button>
+          <button class="all title p-2 border border-black bg-slate-300 hover:bg-slate-100" data-search="all" :class="{'bg-slate-50' : switchArr === null}" @click="switchArr = null">全部</button>
           <button class="is-todo title p-2 border border-black bg-slate-300 hover:bg-slate-100"
-            data-search="isTodo" @click="switchArr = true">已執行</button>
+            data-search="isTodo" :class="{'bg-slate-50' : switchArr === true}" @click="switchArr = true">已執行</button>
           <button class="not-todo title p-2 border border-black bg-slate-300 hover:bg-slate-100"
-            data-search="notTodo" @click="switchArr = false">未執行</button>
+            data-search="notTodo" :class="{'bg-slate-50' : switchArr === false}" @click="switchArr = false">未執行</button>
         </div>
         <div class="content-all w-full border-t-4 border-black border-b-2 p-2">
           <div class="content flex justify-around">
