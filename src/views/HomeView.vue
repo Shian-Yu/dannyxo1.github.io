@@ -41,8 +41,10 @@ export default {
     },
     // 編輯待辦事項
     editText(index) {
-      const newText = prompt('請輸入修改後的文字');
-      this.todoArr[index].text = newText;
+      const newText = prompt('請輸入修改後的文字') || '';
+      if (newText.trim() !== '') {
+        this.todoArr[index].text = newText;
+      };
     },
     // 刪除待辦事項
     deleteText(index) {
@@ -90,7 +92,7 @@ export default {
               <div class="m1 w-1/3">
                 <input v-model="item.status" type="checkbox">
               </div>
-              <div class="m1 w-1/3">第{{ item.id }}筆, {{ item.text }}</div>
+              <div class="m1 w-1/3">第{{ index + 1 }}筆, {{ item.text }}</div>
               <div class="btn-box w-1/3 m1 flex gap-4 justify-center p-2">
                 <button class="content-btn bg-slate-200" @click="editText(index)">編輯</button>
                 <button class="content-btn bg-slate-200" @click="deleteText(index)">刪除</button>
