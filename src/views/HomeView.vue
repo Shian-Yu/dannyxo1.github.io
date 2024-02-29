@@ -2,26 +2,17 @@
 export default {
   data() {
     return{
-      todoArr: [
-        {
-          id: 1,
-          text: 222,
-          status: true,
-        },
-        {
-          id: 2,
-          text: 222,
-          status: false,
-        },
-        {
-          id: 3,
-          text: 222,
-          status: false,
-        },
-      ],
+      todoArr: [],
       todoText: '',
       switchArr: null,
     };
+  },
+  mounted(){
+    // 當網頁開啟後，先執行裡面的JS
+    // 先把資料從LocalStorage特定key拿出來資料，丟入msgArr裡面
+    if(localStorage.getItem('msg')) {
+      this.todoArr = JSON.parse(localStorage.getItem('msg'));
+    }
   },
   methods: {
     // 新增待辦事項
@@ -32,25 +23,35 @@ export default {
           id: id + 1,
           text: this.todoText,
           status: false,
+          switch: false,
+          editText: this.todoText,
         }
         this.todoArr.push(addArr);
         this.todoText = '';
       } else {
         alert('請輸入待辦事項');
-      }
+      };
+      localStorage.setItem('msg', JSON.stringify(this.todoArr));
     },
     // 編輯待辦事項
-    editText(index) {
-      const newText = prompt('請輸入修改後的文字') || '';
-      if (newText.trim() !== '') {
-        this.todoArr[index].text = newText;
+    editText(item) {
+      // const newText = prompt('請輸入修改後的文字', item.text) || '';
+      // if (newText.trim() !== '') {
+      //   item.text = newText;
+      // };
+      item.switch = !item.switch;
+      if (item.editText.trim() !== '') {
+        item.text = item.editText;
+        item.editText = item.text;
       };
+      localStorage.setItem('msg', JSON.stringify(this.todoArr));
     },
     // 刪除待辦事項
     deleteText(index) {
       if(confirm('確定要刪除?')){
         this.todoArr.splice(index,1);
-      }
+      };
+      localStorage.setItem('msg', JSON.stringify(this.todoArr));
     },
   },
   computed: {
@@ -92,15 +93,18 @@ export default {
               <div class="m1 w-1/3">
                 <input v-model="item.status" type="checkbox">
               </div>
-              <div class="m1 w-1/3">第{{ index + 1 }}筆, {{ item.text }}</div>
+              <div v-if="item.switch === true">第{{ index + 1 }}筆, 
+                <input type="text" v-model="item.editText">
+              </div>
+              <div v-else class="break-words m1 w-1/3">第{{ index + 1 }}筆, {{ item.text }}</div>
               <div class="btn-box w-1/3 m1 flex gap-4 justify-center p-2">
-                <button class="content-btn bg-slate-200" @click="editText(index)">編輯</button>
-                <button class="content-btn bg-slate-200" @click="deleteText(index)">刪除</button>
+                <button class="content-btn bg-slate-200 h-[30px]" @click="editText(item)">{{ item.switch ? '完成' : '編輯' }}</button>
+                <button class="content-btn bg-slate-200 h-[30px]" @click="deleteText(index)">刪除</button>
               </div>
             </div>
           </div>
           <div class=" border-t-2 border-black p-2">
-            <button class="enter-to-local bg-slate-200" type="button">存進local</button>
+            <button class="enter-to-local bg-slate-200 p-1" type="button">存進local</button>
           </div>
         </div>
       </div>
