@@ -35,6 +35,8 @@ export default {
         }
         this.todoArr.push(addArr);
         this.todoText = '';
+      } else {
+        alert('請輸入待辦事項');
       }
     },
     // 編輯待辦事項
